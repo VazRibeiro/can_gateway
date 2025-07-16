@@ -1,7 +1,5 @@
 # CAN Gateway
 
-> See [../../README.md](../../README.md) for workspace setup instructions.
-
 ROS 2 lifecycle node that bridges CAN bus and ROS 2 topics.
 
 ## Features
@@ -40,8 +38,3 @@ ros2 launch can_gateway gateway.launch.py interface:=can0
 ros2 service call /can_gateway/configure lifecycle_msgs/srv/ChangeState "{transition: {id: 1}}"
 ros2 service call /can_gateway/activate lifecycle_msgs/srv/ChangeState "{transition: {id: 3}}"
 ```
-
-## Cross-references
-
-- For workspace setup, see [../../README.md](../../README.md).
-- For system-wide launch files, see [evabot_bringup/README.md](../evabot_bringup/README.md).

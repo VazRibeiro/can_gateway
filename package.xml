@@ -2,16 +2,26 @@
 <package format="3">
   <name>can_gateway</name>
   <version>0.0.1</version>
-  <description>C++ ROS 2 node that bridges SocketCAN frames to ROS2 topics and vice-versa.</description>
-  <maintainer email="no@email.com">David Ribeiro</maintainer>
+  <description>High-performance ROS 2 lifecycle node that bridges SocketCAN frames to ROS 2 topics and vice-versa for the Evabot autonomous agricultural platform.</description>
+  <maintainer email="david.ribeiro@example.com">David Ribeiro</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <!-- Core ROS 2 dependencies -->
   <depend>rclcpp</depend>
   <depend>rclcpp_lifecycle</depend>
   <depend>rclcpp_components</depend>
+  
+  <!-- Message dependencies -->
   <depend>can_msgs</depend>
+  <depend>lifecycle_msgs</depend>
+  <depend>std_msgs</depend>
+
+  <!-- Test dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

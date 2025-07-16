@@ -16,16 +16,21 @@ add_executable(can_gateway_node
   src/main.cpp 
 )
 
-target_include_directories(can_gateway_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-)
-
 ament_target_dependencies(can_gateway_node
   rclcpp
   rclcpp_lifecycle
   rclcpp_components
   can_msgs
+)
+
+target_include_directories(can_gateway_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+install(PROGRAMS
+  scripts/lifecycle_manager.py
+  DESTINATION lib/${PROJECT_NAME}
 )
 
 install(

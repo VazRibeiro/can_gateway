@@ -1,18 +1,24 @@
 from launch import LaunchDescription
-from launch_ros.actions import LifecycleNode
+from launch_ros.actions import LifecycleNode, Node
 
 
 def generate_launch_description():
-    return LaunchDescription([
-        LifecycleNode(
-            package='can_gateway',
-            executable='can_gateway_node',
-            name='can_gateway',
-            namespace='',               
-            output='screen',
-            parameters=[{
-                'interface': 'vcan0',   # change to 'can0' on the robot
-                'rx_rate_hz': 1000
-            }]
-        )
-    ])
+    can_gateway = LifecycleNode(
+        namespace='',
+        package='can_gateway',
+        executable='can_gateway_node',
+        name='can_gateway',
+        output='screen',
+        parameters=[{'interface': 'vcan0'}]
+    )
+
+    lifecycle_manager = Node(
+        namespace='',
+        package='can_gateway',
+        executable='lifecycle_manager.py',
+        name='lifecycle_manager_can',
+        output='screen',
+        parameters=[{'managed_nodes': ['can_gateway']}]
+    )
+
+    return LaunchDescription([can_gateway, lifecycle_manager])

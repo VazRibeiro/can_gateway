@@ -1,0 +1,43 @@
+# /etc/systemd/system/can_gateway.service
+# 
+# Systemd service for Evabot CAN Gateway
+# Adjust WorkingDirectory and ExecStart paths for your robot's deployment location
+#
+[Unit]
+Description=ROS 2 CAN Gateway
+After=network.target multi-user.target
+Wants=network.target
+
+[Service]
+Type=simple
+User=evabot
+Group=evabot
+WorkingDirectory=/opt/evabot
+Environment="HOME=/home/evabot"
+Environment="USER=evabot"
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/ros/humble/bin"
+Environment="PYTHONPATH=/opt/ros/humble/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages"
+Environment="LD_LIBRARY_PATH=/opt/ros/humble/lib"
+Environment="ROS_DISTRO=humble"
+Environment="ROS_VERSION=2"  
+Environment="ROS_PYTHON_VERSION=3"
+Environment="ROS_DOMAIN_ID=13"
+Environment="RMW_IMPLEMENTATION=rmw_fastrtps_cpp"
+Environment="AMENT_PREFIX_PATH=/opt/evabot/install:/opt/ros/humble"
+Environment="CMAKE_PREFIX_PATH=/opt/evabot/install:/opt/ros/humble"
+ExecStart=/bin/bash /opt/evabot/start_can_gateway.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# Performance optimizations for Jetson AGX Orin
+# Uncomment as needed for your specific requirements
+# CPUAffinity=4,5,6,7
+# IOSchedulingClass=1
+# IOSchedulingPriority=4
+# MemoryHigh=128M
+# MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target
